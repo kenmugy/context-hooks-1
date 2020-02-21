@@ -32,3 +32,15 @@ ul.books li {
   border-radius: 5px;
   margin-bottom: 10px;
 }
+
+button {
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+cursor: pointer;
+
+}
+button:hover {
+  background: black;
+  color: white;
+}
