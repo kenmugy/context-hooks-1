@@ -1,21 +1,34 @@
 import React, { Component } from 'react';
 import { ThemeContext } from '../contexts/ThemeContext';
+import { BookContext } from '../contexts/BookContext';
 
 class BookList extends Component {
-  static contextType = ThemeContext;
+  // static contextType = ThemeContext;
   render() {
-    const { isLight, dark, light } = this.context;
-    const theme = isLight ? light : dark;
     return (
-      <div style={{ background: theme.bg, color: theme.color }}>
-        <h3>book lists</h3>
-        <ul className='books'>
-          <li style={{ background: theme.ui }}>Things fall Apart</li>
-          <li style={{ background: theme.ui }}>Reciepe for disaster</li>
-          <li style={{ background: theme.ui }}>Among the fools</li>
-          <li style={{ background: theme.ui }}>Empre strikes back</li>
-        </ul>
-      </div>
+      <BookContext.Consumer>
+        {bookCont => (
+          <ThemeContext.Consumer>
+            {themeCont => {
+              const { books } = bookCont;
+              const { isLight, dark, light } = themeCont;
+              const theme = isLight ? light : dark;
+              return (
+                <div style={{ background: theme.bg, color: theme.color }}>
+                  <h3>book lists</h3>
+                  <ul className='books'>
+                    {books.map(book => (
+                      <li key={book.id} style={{ background: theme.ui }}>
+                        {book.title}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              );
+            }}
+          </ThemeContext.Consumer>
+        )}
+      </BookContext.Consumer>
     );
   }
 }

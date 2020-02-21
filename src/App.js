@@ -3,14 +3,17 @@ import Navbar from './components/Navbar';
 import BookList from './components/BookList';
 import ThemeContextProvider from './contexts/ThemeContext';
 import ToggleTheme from './components/ToggleTheme';
+import BookContextProvider from './contexts/BookContext';
 
 function App() {
   return (
     <div className='App'>
       <ThemeContextProvider>
         <Navbar />
-        <BookList />
-        <ToggleTheme />
+        <BookContextProvider>
+          <BookList />
+          <ToggleTheme />
+        </BookContextProvider>
       </ThemeContextProvider>
     </div>
   );
