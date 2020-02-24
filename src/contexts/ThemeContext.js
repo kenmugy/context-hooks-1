@@ -1,9 +1,9 @@
-import React, { Component, createContext } from 'react';
+import React, { useState, createContext } from 'react';
 
 export const ThemeContext = createContext();
 
-class ThemeContextProvider extends Component {
-  state = {
+const ThemeContextProvider = (props) => {
+  const [theme, setTheme] = useState({
     light: { bg: '#eee', ui: '#ddd', color: '#555' },
     dark: {
       bg: '#555',
@@ -11,20 +11,16 @@ class ThemeContextProvider extends Component {
       color: '#eee'
     },
     isLight: true
-  };
+  });
 
-  toggleTheme = () => {
-    this.setState({ isLight: !this.state.isLight });
+  const toggleTheme = () => {
+    setTheme({ ...theme, isLight: !theme.isLight });
   };
-
-  render() {
-    return (
-      <ThemeContext.Provider
-        value={{ ...this.state, toggleTheme: this.toggleTheme }}>
-        {this.props.children}
-      </ThemeContext.Provider>
-    );
-  }
-}
+  return (
+    <ThemeContext.Provider value={{ ...theme, toggleTheme }}>
+      {props.children}
+    </ThemeContext.Provider>
+  );
+};
 
 export default ThemeContextProvider;

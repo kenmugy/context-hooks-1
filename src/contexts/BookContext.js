@@ -1,31 +1,31 @@
-import React, { Component, createContext } from 'react';
+import React, { useState, createContext } from 'react';
+import uuid from 'uuid/v4'
 
 export const BookContext = createContext();
 
-class BookContextProvider extends Component {
-  state = {
-    books: [
-      {
-        id: 0,
-        title: 'Things fall Apart'
-      },
-      {
-        id: 0,
-        title: 'Reciepe for disaster'
-      },
-      {
-        id: 0,
-        title: 'Empre strikes back'
-      }
-    ]
-  };
-  render() {
+let myBooks= [
+  {
+    id: uuid(),
+    title: 'Things fall Apart'
+  },
+  {
+    id: uuid(),
+    title: 'Reciepe for disaster'
+  },
+  {
+    id: uuid(),
+    title: 'Empre strikes back'
+  }
+]
+
+const BookContextProvider = (props) => {
+  const [books] = useState(myBooks)
     return (
-      <BookContext.Provider value={{ ...this.state }}>
-        {this.props.children}
+      <BookContext.Provider value={{books}}>
+        {props.children}
       </BookContext.Provider>
     );
   }
-}
+
 
 export default BookContextProvider;
